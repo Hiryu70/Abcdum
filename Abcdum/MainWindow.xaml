@@ -1,0 +1,48 @@
+﻿<Window x:Class="Abcdum.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:local="clr-namespace:Abcdum"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		Title="MainWindow"
+		Width="800"
+		Height="450"
+		mc:Ignorable="d">
+	<Window.Resources>
+		<Style TargetType="{x:Type Button}" >
+			<Setter Property="Background" Value="#373737" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontSize" Value="40" />
+			<Setter Property="Focusable" Value="False"></Setter>
+		</Style>
+	</Window.Resources>
+
+	<Grid>
+
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<Button Name="A"
+				Grid.Row="0"
+				Grid.Column="0"
+				Click="ButtonBase_OnClick" />
+		<Button Name="B"
+				Grid.Row="0"
+				Grid.Column="1"
+				Click="ButtonBase_OnClick" />
+		<Button Name="C"
+				Grid.Row="1"
+				Grid.Column="0"
+				Click="ButtonBase_OnClick" />
+		<Button Name="D"
+				Grid.Row="1"
+				Grid.Column="1"
+				Click="ButtonBase_OnClick" />
+	</Grid>
+</Window>
