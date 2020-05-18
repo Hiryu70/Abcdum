@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Speech.Synthesis;
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
 namespace Abcdum
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : MetroWindow
 	{
 		private string _trueWord;
 		private string _wrongPhrase;
 		private string _congratulationPhrase;
-		private SpeechSynthesizer _synthesizer = new SpeechSynthesizer();
+		private readonly SpeechSynthesizer _synthesizer = new SpeechSynthesizer();
 
 		public MainWindow()
 		{
@@ -47,7 +45,7 @@ namespace Abcdum
 					_synthesizer.SpeakAsync(congratulationPhrase);
 				}
 
-				var words = new List<string> { "кот", "собака", "утка", "мама", "папа", "баба", "Мелисса" };
+				var words = new List<string> { "кот", "собака", "утка", "мама", "папа", "баба", "Мелисса", "Алексей", "колбаса", "сосиски", "молоко", "кошка", "утюг", "крокодил" };
 				var random = new Random();
 				var trueNumber = random.Next(1, 4);
 
@@ -88,6 +86,11 @@ namespace Abcdum
 
 				_synthesizer.SpeakAsync(wrongPhrase);
 			}
+		}
+
+		private void Repeat_OnClick(object sender, RoutedEventArgs e)
+		{
+			_synthesizer.SpeakAsync(_trueWord);
 		}
 	}
 }

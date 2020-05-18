@@ -1,48 +1,62 @@
-﻿<Window x:Class="Abcdum.MainWindow"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:local="clr-namespace:Abcdum"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		Title="MainWindow"
-		Width="800"
-		Height="450"
-		mc:Ignorable="d">
+﻿<mah:MetroWindow x:Class="Abcdum.MainWindow"
+				 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:abcdum="clr-namespace:Abcdum"
+				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				 Name="Main"
+				 Title="Кукуся"
+				 Width="800"
+				 Height="450"
+				 mc:Ignorable="d">
 	<Window.Resources>
-		<Style TargetType="{x:Type Button}" >
-			<Setter Property="Background" Value="#373737" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="FontSize" Value="40" />
-			<Setter Property="Focusable" Value="False"></Setter>
-		</Style>
+		<abcdum:HalfValueConverter x:Key="HalfValueConverter" />
 	</Window.Resources>
+	<Canvas>
+		<Button Canvas.Left="{Binding ElementName=Main, Path=ActualWidth, Converter={StaticResource HalfValueConverter}}"
+				Canvas.Top="{Binding ElementName=Main, Path=ActualHeight, Converter={StaticResource HalfValueConverter}}"
+				Width="50"
+				Height="50"
+				Canvas.ZIndex="3"
+				Click="Repeat_OnClick">
+			<Image Source="repeat.png" />
+		</Button>
+		<Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type mah:MetroWindow}}}"
+			  Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type mah:MetroWindow}}}"
+			  Canvas.ZIndex="2">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid.Resources>
+				<Style TargetType="Button">
+					<Setter Property="FontSize" Value="60" />
+				</Style>
+			</Grid.Resources>
 
-	<Grid>
+			<Button Name="A"
+					Grid.Row="0"
+					Grid.Column="0"
+					Click="ButtonBase_OnClick" />
+			<Button Name="B"
+					Grid.Row="0"
+					Grid.Column="1"
+					Click="ButtonBase_OnClick" />
+			<Button Name="C"
+					Grid.Row="1"
+					Grid.Column="0"
+					Click="ButtonBase_OnClick" />
+			<Button Name="D"
+					Grid.Row="1"
+					Grid.Column="1"
+					Click="ButtonBase_OnClick" />
+		</Grid>
 
-		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
+	</Canvas>
 
-		<Button Name="A"
-				Grid.Row="0"
-				Grid.Column="0"
-				Click="ButtonBase_OnClick" />
-		<Button Name="B"
-				Grid.Row="0"
-				Grid.Column="1"
-				Click="ButtonBase_OnClick" />
-		<Button Name="C"
-				Grid.Row="1"
-				Grid.Column="0"
-				Click="ButtonBase_OnClick" />
-		<Button Name="D"
-				Grid.Row="1"
-				Grid.Column="1"
-				Click="ButtonBase_OnClick" />
-	</Grid>
-</Window>
+</mah:MetroWindow>
