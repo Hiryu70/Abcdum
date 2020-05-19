@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Speech.Synthesis;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +11,7 @@ namespace Abcdum
 {
 	public partial class MainWindow : MetroWindow
 	{
+		private string _fileName = "words.txt";
 		private string _trueWord;
 		private string _wrongPhrase;
 		private string _congratulationPhrase;
@@ -18,7 +21,7 @@ namespace Abcdum
 		{
 			InitializeComponent();
 			_synthesizer.SelectVoice("Microsoft Server Speech Text to Speech Voice (ru-RU, Elena)");
-			_synthesizer.SpeakAsync("Привет, меня зовут Кукуся. Я младшая сестра Маруси,. Буду учить тебя читать. Буду загадывать попробуй угадать. Первое слово: ");
+			_synthesizer.SpeakAsync("Привет, меня зовут Кукуся. Первое слово: ");
 			ButtonBase_OnClick(new Button(), new RoutedEventArgs());
 		}
 
@@ -35,7 +38,7 @@ namespace Abcdum
 						"правильно, похоже, что ты умнее чем кот",
 						"молодец, я тобой горжусь",
 						"хорошая работа",
-						"неправильно, шучу, правильно. ха ха",
+						"неправильно, шучу, правильно",
 						"поразительный результат",
 						"угадала" };
 					congratulations.Remove(_congratulationPhrase);
@@ -45,8 +48,14 @@ namespace Abcdum
 					_synthesizer.SpeakAsync(congratulationPhrase);
 				}
 
-				var words = new List<string> { "кот", "собака", "утка", "мама", "папа", "баба", "Мелисса", "Алексей", "колбаса", "сосиски", "молоко", "кошка", "утюг", "крокодил" };
+				var rowsCount = File.ReadLines(_fileName).Count();
 				var random = new Random();
+
+				var row = random.Next(0, rowsCount);
+
+				string line = File.ReadLines(_fileName).Skip(row).Take(1).First();
+
+				var words = line.Split(',').ToList();
 				var trueNumber = random.Next(1, 4);
 
 				for (int i = 1; i < 5; i++)
@@ -77,8 +86,7 @@ namespace Abcdum
 					$"это что? по твоему {_trueWord}?", 
 					$"не уверена, что это {_trueWord}", 
 					"не угадала", 
-					"хм, думаю нет",
-					"не правильно, Мелиса - соси са" };
+					"хм, думаю нет" };
 				wrong.Remove(_wrongPhrase);
 				var random = new Random();
 				var wrongPhrase = wrong[random.Next(wrong.Count)];
